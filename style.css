@@ -36,9 +36,20 @@ header nav {
 }
 
 header select {
+  -webkit-appearance: none;
   width: 150px;
   height: 32px;
   padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6883bc;
+  outline: none;
+  color: #fff;
+}
+
+.search {
+  padding: 5px;
+
   border: none;
   border-radius: 5px;
   background-color: #6883bc;

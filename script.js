@@ -4,6 +4,7 @@ const allCountriesEl = document.querySelector(".all-countries");
 const select = document.getElementById("regions");
 const selectPop = document.getElementById("population");
 const selectLetter = document.getElementById("letter");
+const search = document.querySelector(".search");
 
 let data;
 
@@ -90,7 +91,7 @@ const displayCountries = (data) => {
 const filterAll = (data) => {
   getSellectedData(select, data);
   getSellectedData(selectPop, data);
-  // getSellectedData(selectLetter, data);
+  setupSearch(data);
 };
 
 const getSellectedData = (inputt, data) => {
@@ -117,8 +118,29 @@ const getSellectedData = (inputt, data) => {
     } else if (selectPop.value === "za") {
       sortedData.sort((a, b) => b.name.common.localeCompare(a.name.common));
     }
-
     allCountriesEl.innerHTML = "";
+    search.value = "";
     displayCountries(sortedData);
+  });
+};
+
+const setupSearch = (data) => {
+  let filteredData = data;
+
+  search.addEventListener("input", (e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+
+    if (searchTerm === "") {
+      displayCountries(filteredData);
+    } else {
+      const filteredByName = data.filter((country) =>
+        country.name.common.toLowerCase().includes(searchTerm)
+      );
+
+      select.value = "All";
+      selectPop.value = "Normal";
+      allCountriesEl.innerHTML = "";
+      displayCountries(filteredByName);
+    }
   });
 };
